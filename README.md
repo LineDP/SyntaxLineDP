@@ -74,7 +74,6 @@ sh ./train_w2v.sh
 
 ```
 cd ./scripts
-sh ./train_w2v.sh
 sh ./RQ1.sh
 sh ./RQ2.sh
 sh ./RQ3.sh
