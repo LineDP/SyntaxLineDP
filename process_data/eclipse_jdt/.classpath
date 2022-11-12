@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-configuration-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/json-20211205-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.core.contenttype_3.4.1.R35x_v20090826-0451.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.core.jobs_3.4.100.v20090429-1800.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.core.resources_3.5.2.R35x_v20091203-1235.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.core.runtime_3.5.0.v20090525.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.equinox.common_3.5.1.R35x_v20090807-1100.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.equinox.preferences_3.2.301.R35x_v20091117.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.jdt.core_3.5.2.v_981_R35x.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.jdt.core-3.10.0.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.osgi_3.12.0.v20170512-1932.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.osgi_3.5.2.R35x_v20100126.jar"/>
+	<classpathentry kind="lib" path="lib2/commons-beanutils-1.9.3.jar"/>
+	<classpathentry kind="lib" path="lib2/commons-collections-3.2.2.jar"/>
+	<classpathentry kind="lib" path="lib2/commons-lang3-3.7.jar"/>
+	<classpathentry kind="lib" path="lib2/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib2/ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="lib2/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="lib2/jxl-2.6.jar"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

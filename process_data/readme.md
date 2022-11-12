@@ -1,23 +1,25 @@
-从下载数据，保存在../Datasets/original/下
+1 Converting data to a single csv file
+    python preprocess_data.py
 
-1 将数据转成单个csv文件，该文件记录代码行以及代码文件是否有bug
-    preprocess_data.py
+2 Converting code files from csv to txt format
+    python preprocess_data2.py
 
-2 将代码文件从csv转成txt格式
-    preprocess_data2.py
+3 Extracting code features with java eclipse jdt, save in "../Datasets/codewithast/" and "../Datasets/add_syntax/"
+    cd ./eclipse_jdt/src/main/
+    RQ1.java
+    Ablation.java
+    Ablation2.java
+    Ablation3.java
 
-3 java eclipse jdt 提取代码特征，保存在../Datasets/codewithast/ 和 ../Datasets/add_syntax/下
+4 Converting code files to csv format
+    python preprocess_data3.py
 
+5 Extracting the features of each syntax node information
+    python preprocess_data4.py
+    python count_frequency.py
 
-4 将代码文件转为csv格式
-    preprocess_data3.py
-
-5 提取各语法结点信息的特征
-    preprocess_data4.py
-    count_frequency.py
-
-6 为RQ2准备数据
+6 prepare data for RQ2
     process_ablation.py
 
-7 删除语法信息，discussion部分使用
+7 prepare data for discussion
     remove_syntax.py
