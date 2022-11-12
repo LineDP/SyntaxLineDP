@@ -1,0 +1,1 @@
+python ../LSTM/RQ1.py

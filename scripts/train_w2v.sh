@@ -1,0 +1,1 @@
+python ../LSTM/train_word2vec.py
