@@ -132,14 +132,16 @@ python get_data.py
 cd ./PMD
 ```
 
-prepare data
+- prepare data
+
 
 ```
 python preprocess_data.py
 python get_data.py
 ```
 
-get result
+- get result
+
 
 ```
 python generate_result.py
