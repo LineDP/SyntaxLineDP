@@ -22,7 +22,15 @@ for project in projects:
 
     releases=all_eval_releases[project][1:]
 
-    df_list=[pd.read_csv("../Datasets/preprocessed_data3/{}.csv".format(rel)) for rel in releases]
+    df_list=[]
+    
+    for rel in releases:
+        df=pd.read_csv("../Datasets/preprocessed_data3/{}.csv".format(rel))
+        filename=list(df['filename'])
+        new_filename=[rel+item for item in filename]
+        df['filename']=new_filename
+        df_list.append(df)
+    
     df=pd.concat(df_list)
     labels=df['line_label'].tolist()
     probs=[np.mean([random.random() for _ in range(100)]) for _ in range(len(labels))]
