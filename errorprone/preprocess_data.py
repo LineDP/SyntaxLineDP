@@ -2,7 +2,7 @@
 import pandas as pd
 import os, re
 import numpy as np
-
+from multiprocessing import Pool
 from utils import *
 
 data_root_dir = '../Datasets/original/'
@@ -188,5 +188,13 @@ def preprocess_data(proj_name):
         print('finish release {}'.format(rel))
 
 
-for proj in list(all_releases.keys()):
-    preprocess_data(proj)
+
+if __name__ == '__main__': 
+
+    pool=Pool(4)
+
+    for proj in list(all_releases.keys()):
+        pool.apply_async(func=preprocess_data,args=(proj,))
+        # preprocess_data(proj)
+    pool.close()
+    pool.join()

@@ -1,7 +1,8 @@
 from utils import *
 import pandas as pd
+import random
 from cmath import sqrt
-from sklearn.metrics import recall_score,precision_score,f1_score,matthews_corrcoef
+from sklearn.metrics import recall_score,precision_score,f1_score,matthews_corrcoef,roc_auc_score
 
 projects=['activemq', 'camel', 'derby', 'groovy', 'hbase', 'hive','jruby', 'lucene', 'wicket']
 
@@ -13,6 +14,7 @@ mccs=[]
 recall_20_LOCs=[]
 effort_20_recalls=[]
 IFAs=[]
+AUCs=[]
 
 for project in projects:
 
@@ -24,16 +26,26 @@ for project in projects:
     predicts=df['EP_prediction_result'].tolist()
 
     TP,FP,FN,TN=0,0,0,0
+    probability=[]
     for label,predict in zip(labels,predicts):
         if label==True and predict==True:
             TP+=1
+            probability.append(1+random.random())
         if label==True and predict==False:
             FP+=1
+            probability.append(random.random())
         if label==False and predict==True:
             FN+=1
+            probability.append(1+random.random())
         if label==False and predict==False:
             TN+=1
+            probability.append(random.random())
 
+    
+    probability=np.array(probability)
+    x_mean = probability.mean()
+    x_std = probability.std()
+    probability_norm = (probability - x_mean) / x_std
 
     recall=recall_score(labels,predicts)
     precision=precision_score(labels,predicts)
@@ -48,10 +60,17 @@ for project in projects:
     balance_accs.append(balance_acc)
     mccs.append(mcc)
     
+    df['probability']=probability_norm
     df=df.sort_values(by='EP_prediction_result',ascending=False)
     line_label=list(df["line_label"])
     predict_label=list(df['EP_prediction_result'])
 
+    probability=list(df['probability'])
+
+    #计算AUC
+    AUC=roc_auc_score(line_label,probability)
+    AUCs.append(AUC)
+    
     #计算recall@20%LOC
     predict=[1 for _ in range(int(len(line_label)*0.2))]
     length=len(predict)
@@ -89,6 +108,6 @@ for project in projects:
                 break
     IFAs.append(np.mean(IFA))
 
-dic={"projects":projects,"recall@20LOC":recall_20_LOCs,"effort@20recall":effort_20_recalls,"IFA":IFAs,"recall":recalls,"precision":precisions,"f1":f1s,"balance_acc":balance_accs,"mcc":mccs}
+dic={"projects":projects,"recall@20LOC":recall_20_LOCs,"effort@20recall":effort_20_recalls,"IFA":IFAs,"recall":recalls,"precision":precisions,"f1":f1s,"balance_acc":balance_accs,"mcc":mccs,"AUC":AUCs}
 df=pd.DataFrame(dic)
-df.to_csv("result2.csv",index=False)
+df.to_csv("result.csv",index=False)

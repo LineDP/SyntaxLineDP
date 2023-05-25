@@ -1,7 +1,8 @@
 from utils import *
 import pandas as pd
 from cmath import sqrt
-from sklearn.metrics import recall_score,precision_score,f1_score,matthews_corrcoef
+from sklearn.metrics import recall_score,precision_score,f1_score,matthews_corrcoef,roc_auc_score
+from sklearn.preprocessing import MinMaxScaler
 
 projects=['activemq', 'camel', 'derby', 'groovy', 'hbase', 'hive','jruby', 'lucene', 'wicket']
 
@@ -13,6 +14,7 @@ mccs=[]
 recall_20_LOCs=[]
 effort_20_recalls=[]
 IFAs=[]
+AUCs=[]
 
 for project in projects:
 
@@ -35,6 +37,12 @@ for project in projects:
             TN+=1
 
 
+    probability=df['probability']
+    
+    x_mean = probability.mean()
+    x_std = probability.std()
+    probability_norm = (probability - x_mean) / x_std
+    
     recall=recall_score(labels,predicts)
     precision=precision_score(labels,predicts)
     f1=f1_score(labels,predicts)
@@ -48,11 +56,17 @@ for project in projects:
     balance_accs.append(balance_acc)
     mccs.append(mcc)
     
-    df=df.sort_values(by='PMD_prediction_result',ascending=False)
-    # df=df.sort_values(by='probability',ascending=False)
+    df['probability']=probability_norm
+    
+    # df=df.sort_values(by='PMD_prediction_result',ascending=False)
+    df=df.sort_values(by='probability',ascending=False)
     line_label=list(df["line_label"])
     predict_label=list(df['PMD_prediction_result'])
+    probability=list(df['probability'])
 
+    #计算AUC
+    AUC=roc_auc_score(line_label,probability)
+    AUCs.append(AUC)
     #计算recall@20%LOC
     predict=[1 for _ in range(int(len(line_label)*0.2))]
     length=len(predict)
@@ -90,6 +104,6 @@ for project in projects:
                 break
     IFAs.append(np.mean(IFA))
 
-dic={"projects":projects,"recall@20LOC":recall_20_LOCs,"effort@20recall":effort_20_recalls,"IFA":IFAs,"recall":recalls,"precision":precisions,"f1":f1s,"balance_acc":balance_accs,"mcc":mccs}
+dic={"projects":projects,"recall@20LOC":recall_20_LOCs,"effort@20recall":effort_20_recalls,"IFA":IFAs,"recall":recalls,"precision":precisions,"f1":f1s,"balance_acc":balance_accs,"mcc":mccs,"AUC":AUCs}
 df=pd.DataFrame(dic)
 df.to_csv("result.csv",index=False)

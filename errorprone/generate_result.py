@@ -1,3 +1,4 @@
+import random
 import pandas as pd
 import numpy as np
 import subprocess, re, os, time
@@ -55,12 +56,21 @@ def run_ErrorProne(rel):
 
         line_df = pd.DataFrame()
 
+        predict=[]
+        
         line_df['filename'] = [java_filename]*code_len
         line_df['test-release'] = [rel]*len(line_df)
         line_df['line_number'] = np.arange(1,code_len+1)
         line_df['line_label']=line_label
         line_df['EP_prediction_result'] = line_df['line_number'].isin(reported_lines)
 
+        for i in line_df['EP_prediction_result']:
+            if i :
+                predict.append(1+random.random())
+            else:
+                predict.append(random.random())
+        line_df['probability']=predict
+        
         df_list.append(line_df)
 
     final_df = pd.concat(df_list)
